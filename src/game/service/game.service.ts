@@ -30,7 +30,7 @@ export class GameService {
     this.gameValidator.throwErrorIfPriceIsNotValid(gameDto.price);
 
     // validate if game title exits
-    await this.gameValidator.throwErrorIfGameTitleExits(gameDto.title);
+    await this.gameValidator.throwErrorIfGameTitleExists(gameDto.title);
 
     // if publisher exists update it, otherwise create it
     const publisherDocument = await this.publisherService.createOrUpdatePublisherDocument(gameDto.publisher);
@@ -82,7 +82,7 @@ export class GameService {
     this.gameValidator.throwErrorIfIdIsInvalid(id);
 
     // exits?
-    await this.gameValidator.throwErrorIfDocumentDoesntExits(id);
+    await this.gameValidator.throwErrorIfDocumentDoesntExists(id);
 
     // delete
     return this.gameRepository.delete(id);
@@ -109,7 +109,7 @@ export class GameService {
   async getGameDtoById(id: string): Promise<GameDto> {
     // validate
     this.gameValidator.throwErrorIfIdIsInvalid(id);
-    await this.gameValidator.throwErrorIfDocumentDoesntExits(id);
+    await this.gameValidator.throwErrorIfDocumentDoesntExists(id);
 
     // get
     const gameDocument = await this.gameRepository.findById(id);

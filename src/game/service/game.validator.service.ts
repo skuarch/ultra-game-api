@@ -36,7 +36,7 @@ export class GameValidatorService {
     }
   }
 
-  async throwErrorIfDocumentExits(id: string): Promise<void> {
+  async throwErrorIfDocumentExists(id: string): Promise<void> {
     if (id) {
       const gameDocument = await this.gameRepository.findById(id);
       if (gameDocument) {
@@ -45,7 +45,7 @@ export class GameValidatorService {
     }
   }
 
-  async throwErrorIfDocumentDoesntExits(id: string): Promise<void> {
+  async throwErrorIfDocumentDoesntExists(id: string): Promise<void> {
     if (id) {
       const gameDocument = await this.gameRepository.findById(id);
       if (!gameDocument) {
@@ -67,7 +67,7 @@ export class GameValidatorService {
     }
   }
 
-  async throwErrorIfGameTitleExits(title: string): Promise<void> {
+  async throwErrorIfGameTitleExists(title: string): Promise<void> {
     const gameDocument = await this.gameRepository.getGameDocumentByTitle(title);
     if (gameDocument) {
       throw new HttpException(`game ${title} already exists`, HttpStatus.FOUND);
@@ -79,12 +79,17 @@ export class GameValidatorService {
   }
 
   throwErrorIfPriceIsNotValid(price: string) {
-    const priceNoBlanks = price.split(/\s/).join('');
+    const priceNoBlanks = price.replace(/\s+/, '');
+
     if (!price || price.length < 0 || priceNoBlanks.length < 1) {
       throw new HttpException('price should be higher than 0', HttpStatus.BAD_REQUEST);
     }
+    if (typeof parseFloat(price) != 'number') {
+      throw new HttpException('price should be number', HttpStatus.BAD_REQUEST);
+    }
+
     const regex = /^\d+(?:\.\d{0,2})$/;
-    if (!regex.test(price.toString())) {
+    if (!regex.test(price)) {
       throw new HttpException('price is not valid', HttpStatus.BAD_REQUEST);
     }
   }
