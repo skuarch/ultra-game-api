@@ -78,14 +78,13 @@ export class GameValidatorService {
     return this.ObjectId.isValid(id) && id.match(/^[0-9a-fA-F]{24}$/);
   }
 
-  throwErrorIfPriceIsNotValid(price: number) {
-    if (price < 0) {
-      console.log('entro aqui 1');
+  throwErrorIfPriceIsNotValid(price: string) {
+    const priceNoBlanks = price.split(/\s/).join('');
+    if (!price || price.length < 0 || priceNoBlanks.length < 1) {
       throw new HttpException('price should be higher than 0', HttpStatus.BAD_REQUEST);
     }
     const regex = /^\d+(?:\.\d{0,2})$/;
     if (!regex.test(price.toString())) {
-      console.log('entro aqui 2');
       throw new HttpException('price is not valid', HttpStatus.BAD_REQUEST);
     }
   }

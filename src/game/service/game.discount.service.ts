@@ -17,8 +17,9 @@ export class GameDiscountService {
 
     const gameDocuments = await this.gameRepository.getGamesByDateRange(startDate, endDate);
     gameDocuments.map((doc) => {
-      const discount = (doc.price * 25) / 100;
-      doc.price = doc.price - discount;
+      const originalPrice: any = parseFloat(doc.originalPrice).toPrecision(2);
+      const discount = (originalPrice * 25) / 100;
+      doc.price = `${originalPrice - discount}`;
       doc.discountApplied = true;
     });
 

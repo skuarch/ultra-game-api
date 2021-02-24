@@ -10,11 +10,11 @@ export class Game extends Document {
   @Prop({ required: true })
   title: string;
 
-  @Prop({ required: true, default: 0, min: 0 })
-  price: number;
+  @Prop({ required: true })
+  price: string;
 
   @Prop({ default: 0, min: 0 })
-  originalPrice: number;
+  originalPrice: string;
 
   @Prop({ required: true })
   tags: string[];

@@ -1,5 +1,5 @@
-import { PublisherDto } from '../../publisher/dto/publisher.dto.interface';
 import { ApiProperty } from '@nestjs/swagger';
+import { PublisherDto } from '../../publisher/dto/publisher.dto.interface';
 
 export class GameDto {
   @ApiProperty()
@@ -9,9 +9,9 @@ export class GameDto {
   title: string;
 
   @ApiProperty()
-  price: number;
+  price: string;
 
-  originalPrice?: number;
+  originalPrice?: string;
 
   @ApiProperty()
   publisher: PublisherDto;
