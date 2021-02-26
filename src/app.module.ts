@@ -22,7 +22,6 @@ import { MongooseConfig } from './config/mongoose.config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/game'),
     MongooseModule.forFeature([{ name: Game.name, schema: GameSchema }]),
     MongooseModule.forFeature([{ name: Publisher.name, schema: PublisherSchema }]),
     ConfigModule.forRoot({

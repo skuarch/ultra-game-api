@@ -1,11 +1,12 @@
-version: "3"
+version: "3.5"
 services:
   app:
-    container_name: game-api
-    restart: always
+    container_name: game-api    
     build: .    
     ports:
       - "3000:3000"
+    expose: 
+      - "3000"
     links:
       - mongo-docker
     environment:
@@ -17,3 +18,5 @@ services:
       - ./data:/data/db
     ports:
       - "27017:27017"
+    expose: 
+      - "27017"
