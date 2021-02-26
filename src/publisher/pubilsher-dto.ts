@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class PublisherDto {
-  // @ApiProperty()
   _id?: string;
 
   @ApiProperty()

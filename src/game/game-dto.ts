@@ -2,7 +2,6 @@ import { PublisherDto } from '../publisher/pubilsher-dto';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class GameDto {
-  // @ApiProperty()
   _id?: string;
 
   @ApiProperty()
@@ -11,7 +10,6 @@ export class GameDto {
   @ApiProperty()
   price: string;
 
-  // @ApiProperty()
   originalPrice?: string;
 
   @ApiProperty()
