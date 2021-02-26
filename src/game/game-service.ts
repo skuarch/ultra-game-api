@@ -95,4 +95,8 @@ export class GameService {
       throw new HttpException(`game ${title} already exists`, HttpStatus.FOUND);
     }
   }
+
+  getIdsFromDocuments(gameDocuments: GameDocument[]) {
+    return gameDocuments.map((doc) => doc._id);
+  }
 }

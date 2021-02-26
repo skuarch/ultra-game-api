@@ -19,9 +19,14 @@ import { GameDeleteService } from './game/game-delete.service';
 import { GameGetGameOrPublisherService } from './game/game-get-game-or-publisher.service';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseConfig } from './config/mongoose.config';
+import { ScheduleModule } from '@nestjs/schedule';
+import { GameTasksService } from './game/game-tasks.service';
+import { GameDeleteOldService } from './game/game-delete-old.service';
+import { GameDiscountService } from './game/game-discount.service';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     MongooseModule.forFeature([{ name: Game.name, schema: GameSchema }]),
     MongooseModule.forFeature([{ name: Publisher.name, schema: PublisherSchema }]),
     ConfigModule.forRoot({
@@ -48,6 +53,9 @@ import { MongooseConfig } from './config/mongoose.config';
     PublisherValidatorService,
     GameDeleteService,
     GameGetGameOrPublisherService,
+    GameTasksService,
+    GameDeleteOldService,
+    GameDiscountService,
   ],
 })
 export class AppModule {}
