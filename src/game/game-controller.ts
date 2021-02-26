@@ -6,6 +6,7 @@ import { GameUpdateService } from './game-update.service';
 import { GameDeleteService } from './game-delete.service';
 import { PublisherDto } from 'src/publisher/pubilsher-dto';
 import { GameGetGameOrPublisherService } from './game-get-game-or-publisher.service';
+import { ApiParam } from '@nestjs/swagger';
 
 @Controller('v1/game')
 export class GameController {
@@ -28,7 +29,7 @@ export class GameController {
   }
 
   @Get(':param')
-  // @ApiParam({ name: 'param', required: true, description: 'game name or game id' })
+  @ApiParam({ name: 'param', required: true, description: 'game name or game id' })
   async getGamebyName(@Param('param') param: string): Promise<PublisherDto> {
     return await this.gameGetGameOrPublisher.getGetGameOrPublisher(param);
   }
