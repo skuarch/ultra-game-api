@@ -17,12 +17,22 @@ import { GameUpdateService } from './game/game-update.service';
 import { PublisherValidatorService } from './publisher/publisher-validator.service';
 import { GameDeleteService } from './game/game-delete.service';
 import { GameGetGameOrPublisherService } from './game/game-get-game-or-publisher.service';
+import { ConfigModule } from '@nestjs/config';
+import { MongooseConfig } from './config/mongoose.config';
 
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost:27017/game'),
     MongooseModule.forFeature([{ name: Game.name, schema: GameSchema }]),
     MongooseModule.forFeature([{ name: Publisher.name, schema: PublisherSchema }]),
+    ConfigModule.forRoot({
+      envFilePath: `src/environment/.${process.env.NODE_ENV}.env`,
+      isGlobal: true,
+      expandVariables: true,
+    }),
+    MongooseModule.forRootAsync({
+      useClass: MongooseConfig,
+    }),
   ],
   controllers: [AppController, GameController],
   providers: [
