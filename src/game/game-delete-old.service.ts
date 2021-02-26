@@ -9,7 +9,7 @@ export class GameDeleteOldService {
     private readonly gameRepository: GameRepositoryService,
     private readonly gameService: GameService,
     private readonly configService: ConfigService,
-  ) { }
+  ) {}
 
   async deleteOldGames(): Promise<void> {
     // get time to delete
