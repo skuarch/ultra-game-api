@@ -1,15 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { GameRepositoryService } from './game-repository.service';
 import { GameService } from './game-service';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class GameDeleteOldService {
-  constructor(
-    private readonly gameRepository: GameRepositoryService,
-    private readonly gameService: GameService,
-    private readonly configService: ConfigService,
-  ) {}
+  constructor(private readonly gameService: GameService, private readonly configService: ConfigService) {}
 
   async deleteOldGames(): Promise<void> {
     // get time to delete
