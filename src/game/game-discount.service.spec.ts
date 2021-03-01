@@ -62,7 +62,7 @@ describe('gameDiscount', () => {
     };
 
     const pastDate = new Date();
-    pastDate.setMonth(pastDate.getMonth() - 12);
+    pastDate.setMonth(pastDate.getMonth() - 13);
     const gameDto: GameDto = {
       title: 'theTitle',
       price: '1000.00',
@@ -83,12 +83,51 @@ describe('gameDiscount', () => {
     setTimeout(async () => {
       const gameDocument = await gameRepository.getById(savedGame._id);
       expect(gameDocument.discountApplied).toEqual(true);
+      expect(parseFloat(gameDocument.price)).toBeLessThan(parseFloat(savedGame.price));
+      done();
+    }, 30);
+  });
+
+  it('create a game with less than 1 year', async (done) => {
+    // no discount, the game doesn't have one year for one second
+
+    // given
+    const publisherDto: PublisherDto = {
+      _id: ObjectId().toHexString(),
+      name: 'publisher',
+      phone: '123456',
+      siret: 12345,
+    };
+
+    const pastDate = new Date();
+    pastDate.setMonth(pastDate.getMonth() - 12);
+    pastDate.setSeconds(pastDate.getSeconds() + 1); // almost one year
+    const gameDto: GameDto = {
+      title: 'theTitle',
+      price: '1000.00',
+      releaseDate: pastDate,
+      tags: ['tag'],
+      publisher: publisherDto,
+    };
+    const savedPublisher = await publisherRepository.add(publisherDto);
+    publisherDto._id = savedPublisher._id;
+    gameDto.publisher = publisherDto;
+    const savedGame = await gameRepository.add(gameDto);
+
+    // when
+    await service.discountByDateRange();
+
+    // then
+    // we need to wait until discount is applied
+    setTimeout(async () => {
+      const gameDocument = await gameRepository.getById(savedGame._id);
+      expect(gameDocument.discountApplied).toEqual(false); // no discount
       done();
     }, 30);
   });
 
   it('create a game with current date', async (done) => {
-    // no discount game is new
+    // no discount, game is new
     // given
     const publisherDto: PublisherDto = {
       _id: ObjectId().toHexString(),
