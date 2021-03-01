@@ -105,7 +105,7 @@ describe('gameValidator', () => {
 
     // then
     expect(error).toBeDefined();
-    expect(error.response).toEqual(`game ${gameDto.title} already exists`);
+    expect(error.response).toEqual(`game: ${gameDto.title} already exists`);
     expect(error.status).toEqual(302);
   });
 
