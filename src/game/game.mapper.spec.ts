@@ -8,7 +8,6 @@ import { GameDto } from './game-dto';
 describe('GameMapperService', () => {
   let service: GameMapperService;
 
-  // -------------------------------------------------------------------
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       providers: [PublisherMapperService, GameMapperService],
@@ -17,12 +16,10 @@ describe('GameMapperService', () => {
     service = module.get<GameMapperService>(GameMapperService);
   });
 
-  // -------------------------------------------------------------------
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
 
-  // -------------------------------------------------------------------
   it('map documents to dto', () => {
     // given
     const publisherDocument = {
@@ -49,7 +46,6 @@ describe('GameMapperService', () => {
     expect(result.publisher.name).toEqual(gameDocument.publisher.name);
   });
 
-  // -------------------------------------------------------------------
   it('asign dto values to document', () => {
     // given
     const publisherDocument = {
