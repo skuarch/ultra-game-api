@@ -10,11 +10,16 @@ node start:dev
 ```
 This environment requires one mongodb provided by developer in **localhost** and port **27017** see the **Environments** section to change the connection and other variables
 
+#### Test application:
+```sh
+npm run test
+```
+When running the above command it doesn't require a database, it creates a in **memory** database that is temporal
 
 #### Run application in docker
 ```sh
 cd game-api
-docker-compose down
+docker-compose down (optional)
 docker-compose up --build
 ```
 This command requires to have docker installed in local machine, and this command is going to pull the images of node and mongodb
