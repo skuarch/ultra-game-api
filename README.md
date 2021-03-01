@@ -4,7 +4,7 @@
 
 #### Start Application in Development Mode:
 ```sh
-cd game-api
+cd ultra-game-api
 npm install
 node start:dev
 ```
