@@ -4,6 +4,7 @@
 
 #### Start Application in Development Mode:
 ```sh
+git clone https://github.com/skuarch/ultra-game-api.git
 cd ultra-game-api
 npm install
 node start:dev
@@ -18,8 +19,7 @@ When running the above command it doesn't require a database, it creates a in **
 
 #### Run application in docker
 ```sh
-git clone https://github.com/skuarch/ultra-game-api.git
-cd game-api
+cd ultra-game-api
 docker-compose down (optional)
 docker-compose up --build
 ```
