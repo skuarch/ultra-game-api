@@ -18,7 +18,7 @@ import { GameDeleteOldService } from './game-delete-old.service';
 import { EIGHTEEN_MONTHS } from '../constants/constants';
 import { GameDeleteService } from './game-delete.service';
 
-describe('deketeGame', () => {
+describe('deleteGame', () => {
   let service: GameDeleteService;
   let publisherRepository: PublisherRepositoryService;
   let gameRepository: GameRepositoryService;
