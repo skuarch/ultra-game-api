@@ -72,6 +72,68 @@ describe('gameValidator', () => {
 
     // then
     expect(result).toBeDefined();
+    expect(result.title).toEqual(gameDto.title);
+  });
+
+  it('create game twice with same title', async () => {
+    // game name should be unique
+    // given
+    const publisherDto: PublisherDto = {
+      _id: ObjectId().toHexString(),
+      name: 'publisher',
+      phone: '123456',
+      siret: 12345,
+    };
+
+    const gameDto: GameDto = {
+      title: 'theTitle1',
+      price: '1000.00',
+      releaseDate: new Date(),
+      tags: ['tag'],
+      publisher: publisherDto,
+    };
+    const savedPublisher = await publisherRepository.add(publisherDto);
+    publisherDto._id = savedPublisher._id;
+    gameDto.publisher = publisherDto;
+
+    // when
+    let error: any;
+    await service.createGame(gameDto);
+    await service.createGame(gameDto).catch((e) => {
+      error = e;
+    });
+
+    // then
+    expect(error).toBeDefined();
+    expect(error.response).toEqual(`game ${gameDto.title} already exists`);
+    expect(error.status).toEqual(302);
+  });
+
+  it('create game with 0.00', async () => {
+    // given
+    const publisherDto: PublisherDto = {
+      _id: ObjectId().toHexString(),
+      name: 'publisher',
+      phone: '123456',
+      siret: 12345,
+    };
+
+    const gameDto: GameDto = {
+      title: 'theTitle0.00',
+      price: '0.00',
+      releaseDate: new Date(),
+      tags: ['tag'],
+      publisher: publisherDto,
+    };
+    const savedPublisher = await publisherRepository.add(publisherDto);
+    publisherDto._id = savedPublisher._id;
+    gameDto.publisher = publisherDto;
+
+    // when
+    const result = await service.createGame(gameDto);
+
+    // then
+    expect(result).toBeDefined();
   });
 
   it('create game with invalid publisher', async () => {
@@ -111,7 +173,7 @@ describe('gameValidator', () => {
 
     const gameDto: GameDto = {
       title: 'theTitle',
-      price: '1000',
+      price: '1000', // price should be 1000.00 with decimals
       releaseDate: new Date(),
       tags: ['tag'],
       publisher: publisherDto,
@@ -121,10 +183,39 @@ describe('gameValidator', () => {
     gameDto.publisher = publisherDto;
 
     // when
-    const result = await service.createGame(gameDto);
+    let error: any;
+    await service.createGame(gameDto).catch((e) => (error = e));
 
     // then
-    expect(result).toBeDefined();
+    expect(error).toBeDefined();
+  });
+
+  it('create game negative price', async () => {
+    // given
+    const publisherDto: PublisherDto = {
+      _id: ObjectId().toHexString(),
+      name: 'publisher',
+      phone: '123456',
+      siret: 12345,
+    };
+
+    const gameDto: GameDto = {
+      title: 'theTitle',
+      price: '-1000.00',
+      releaseDate: new Date(),
+      tags: ['tag'],
+      publisher: publisherDto,
+    };
+    const savedPublisher = await publisherRepository.add(publisherDto);
+    publisherDto._id = savedPublisher._id;
+    gameDto.publisher = publisherDto;
+
+    // when
+    let error: any;
+    await service.createGame(gameDto).catch((e) => (error = e));
+
+    // then
+    expect(error).toBeDefined();
   });
 
   afterAll(async () => {
