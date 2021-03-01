@@ -1,0 +1,22 @@
+version: "3.5"
+services:
+  app:
+    container_name: game-api    
+    build: .    
+    ports:
+      - "3000:3000"
+    expose: 
+      - "3000"
+    links:
+      - mongo-docker
+    environment:
+      - NODE_ENV=docker
+  mongo-docker:
+    container_name: mongo-docker
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+    expose: 
+      - "27017"
