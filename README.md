@@ -8,6 +8,7 @@ git clone https://github.com/skuarch/ultra-game-api.git
 cd ultra-game-api
 npm install
 npm run start:dev
+open http://localhost:3000/ 
 ```
 This environment requires one mongodb provided by developer in **localhost** and port **27017** see the **Environments** section to change the connection and other variables
 
