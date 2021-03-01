@@ -1,16 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { GameService } from './game-service';
-import { ConfigService } from '@nestjs/config';
+import { EIGHTEEN_MONTHS } from '../constants/constants';
 
 @Injectable()
 export class GameDeleteOldService {
-  constructor(private readonly gameService: GameService, private readonly configService: ConfigService) {}
+  constructor(private readonly gameService: GameService) {}
 
   async deleteOldGames(): Promise<void> {
     // get time to delete
     const date = new Date();
-    const oldGamesMonth = this.configService.get<number>('OLD_GAME_MONTHS');
-    date.setMonth(date.getMonth() - oldGamesMonth);
+    date.setMonth(date.getMonth() - EIGHTEEN_MONTHS);
 
     // get old games
     const gameDocuments = await this.gameService.getOldGames(date);
