@@ -11,17 +11,13 @@ import { GameMapperService } from './game-mapper.service';
 import { PublisherMapperService } from '../publisher/publisher-mapper.service';
 import { PublisherService } from '../publisher/publisher.service';
 import { PublisherRepositoryService } from '../publisher/publisher-repository.service';
-import * as mongoose from 'mongoose';
-import { PublisherDto } from '../publisher/pubilsher-dto';
 import { GameDto } from './game-dto';
 import { GameDeleteOldService } from './game-delete-old.service';
 import { GameGetGameOrPublisherService } from './game-get-game-or-publisher.service';
 
 describe('deleteGame', () => {
   let service: GameService;
-  let publisherRepository: PublisherRepositoryService;
   let gameRepository: GameRepositoryService;
-  const ObjectId = mongoose.Types.ObjectId;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -45,7 +41,6 @@ describe('deleteGame', () => {
     }).compile();
 
     service = module.get<GameService>(GameService);
-    publisherRepository = module.get<PublisherRepositoryService>(PublisherRepositoryService);
     gameRepository = module.get<GameRepositoryService>(GameRepositoryService);
   });
 
