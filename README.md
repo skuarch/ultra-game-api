@@ -18,6 +18,7 @@ When running the above command it doesn't require a database, it creates a in **
 
 #### Run application in docker
 ```sh
+git clone https://github.com/skuarch/ultra-game-api.git
 cd game-api
 docker-compose down (optional)
 docker-compose up --build
