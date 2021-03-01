@@ -92,7 +92,7 @@ export class GameService {
   async throwErrorIfGameTitleExists(title: string): Promise<void> {
     const gameDocument = await this.getGameDocumentByTitle(title);
     if (gameDocument) {
-      throw new HttpException(`game ${title} already exists`, HttpStatus.FOUND);
+      throw new HttpException(`game: ${title} already exists`, HttpStatus.FOUND);
     }
   }
 
